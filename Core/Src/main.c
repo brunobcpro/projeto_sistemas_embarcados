@@ -98,10 +98,37 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+	/* USER CODE BEGIN 3 */
+	// Simulação de PWM de Software (Projeto 1)
 
-    /* USER CODE BEGIN 3 */
-	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5); // Ajuste se a porta/pino do LED for diferente
-	  HAL_Delay(500);
+	int brilho = 0;
+	int direcao = 1;
+
+	while (1)
+	{
+	  // Lógica simples de PWM
+	  for(int i = 0; i < 100; i++)
+	  {
+		  if(i < brilho)
+		  {
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET); // Liga LED [cite: 19]
+		  }
+		  else
+		  {
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET); // Desliga LED [cite: 19]
+		  }
+		  // Micro-delay para criar a frequência do PWM
+		  // Nota: HAL_Delay usa ms. Para PWM suave, o ideal seria usar us (microsegundos),
+		  // mas para fins didáticos de GPIO, usaremos ciclos curtos.
+	  }
+
+	  // Altera o nível de brilho
+	  brilho += direcao;
+	  if (brilho >= 100 || brilho <= 0) direcao *= -1;
+
+	  HAL_Delay(10); // Velocidade do efeito de fading [cite: 925]
+	}
+
   }
   /* USER CODE END 3 */
 }
@@ -211,18 +238,22 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : B1_Pin */
-  GPIO_InitStruct.Pin = B1_Pin;
+  /*Configure GPIO pin : PC13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pin : LD2_Pin */
   GPIO_InitStruct.Pin = LD2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
