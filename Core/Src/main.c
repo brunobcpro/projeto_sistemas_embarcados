@@ -44,6 +44,7 @@ UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 volatile uint16_t delay_pisca = 500; // Meio período para 1 Hz (500ms ligado, 500ms desligado)
+volatile uint8_t modo_operacao = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -100,7 +101,22 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	HAL_Delay(500);
+	switch(modo_operacao) {
+		case 0: // Modo 0: Desligado
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+			HAL_Delay(100);
+			break;
+
+		case 1: // Modo 1: Pisca Lento
+			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+			HAL_Delay(500);
+			break;
+
+		case 2: // Modo 2: Pisca Rápido (Pisca-Alerta)
+			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+			HAL_Delay(100);
+			break;
+	}
   }
   /* USER CODE END 3 */
 }
@@ -235,11 +251,23 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-  // Verifica se a interrupção veio realmente do pino 13 (nosso botão)
-  if(GPIO_Pin == GPIO_PIN_13)
+  static uint32_t ultimo_clique = 0;
+  uint32_t tempo_atual = HAL_GetTick();
+
+  // Verifica se foi o botão azul (PC13)
+  if(GPIO_Pin == B1_Pin || GPIO_Pin == GPIO_PIN_13)
   {
-    // Alterna o estado do LED Verde
-    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+    // Aumentei o debounce para 500ms (meio segundo)
+    if((tempo_atual - ultimo_clique) > 500)
+    {
+      modo_operacao++;
+
+      if(modo_operacao > 2) {
+        modo_operacao = 0;
+      }
+
+      ultimo_clique = tempo_atual;
+    }
   }
 }
 /* USER CODE END 4 */
