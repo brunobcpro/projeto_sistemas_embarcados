@@ -100,8 +100,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5); // Ajuste se a porta/pino do LED for diferente
-	  HAL_Delay(500);
+	HAL_Delay(500);
   }
   /* USER CODE END 3 */
 }
@@ -221,8 +220,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pin = LD2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
@@ -232,18 +235,11 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-  // Verifica se a interrupção foi gerada pelo pino do botão de usuário (PC13)
+  // Verifica se a interrupção veio realmente do pino 13 (nosso botão)
   if(GPIO_Pin == GPIO_PIN_13)
   {
-    // Cada nova interrupção alterna entre a cadência de 1 Hz e 2 Hz
-    if(delay_pisca == 500) // Se estava em 1 Hz
-    {
-      delay_pisca = 250;   // Altera a cadência para 2 Hz (250ms ligado/desligado)
-    }
-    else                   // Se estava em 2 Hz
-    {
-      delay_pisca = 500;   // Retorna para 1 Hz
-    }
+    // Alterna o estado do LED Verde
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
   }
 }
 /* USER CODE END 4 */
