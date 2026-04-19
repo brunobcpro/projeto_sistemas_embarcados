@@ -1,0 +1,10 @@
+# Ignorar pastas de compilação
+Debug/
+Release/
+
+# Ignorar binários e objetos
+*.o
+*.elf
+*.bin
+*.hex
+*.map
