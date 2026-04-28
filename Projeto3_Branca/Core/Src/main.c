@@ -111,14 +111,11 @@ int main(void)
     /* USER CODE END WHILE */
 
 	  /* USER CODE BEGIN 3 */
-
+	  sprintf(msg_pc, "nplaca conectada");
 	      // ESTADO 1: O botão foi apertado! Hora de pedir os dados.
 	      if (estado == 1) {
 	          // 1. Armamos a "rede" para capturar 1 byte do contador por Interrupção
 	          HAL_UART_Receive_IT(&huart1, &contador_recebido, 1);
-
-	          // 2. Armamos a "rede grande" para capturar os 50 bytes da tabela por DMA
-	          HAL_UART_Receive_DMA(&huart1, tabela_recebida, 50);
 
 	          // 3. Enviamos o comando 0x5A para a placa verde
 	          HAL_UART_Transmit_IT(&huart1, &cmd, 1);
@@ -343,9 +340,18 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
-    // Só deixa mudar o estado se o sistema estiver livre (estado 0). Isso cria o "bloqueio" pedido.
+    // Só deixa mudar o estado se o sistema estiver livre (estado 0).
+    // Isso cria o "bloqueio" pedido.
     if (GPIO_Pin == GPIO_PIN_13 && estado == 0) {
         estado = 1;
+    }
+}
+
+// COLOQUE O PASSO B AQUI, LOGO ABAIXO DA FUNÇÃO DO BOTÃO:
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+    if (huart->Instance == USART1) {
+        // Recebeu o contador! Agora arma o DMA rápido para pegar a tabela que vem atrás.
+        HAL_UART_Receive_DMA(&huart1, tabela_recebida, 50);
     }
 }
 /* USER CODE END 4 */
