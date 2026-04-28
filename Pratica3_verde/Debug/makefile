@@ -64,8 +64,8 @@ all: main-build
 main-build: Projeto_verde.elf secondary-outputs
 
 # Tool invocations
-Projeto_verde.elf Projeto_verde.map: $(OBJS) $(USER_OBJS) C:\Users\Operador\Documents\Entrega_Final\Projeto_verde\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Projeto_verde.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Operador\Documents\Entrega_Final\Projeto_verde\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Projeto_verde.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Projeto_verde.elf Projeto_verde.map: $(OBJS) $(USER_OBJS) C:\Users\Operador\Documents\Entrega_Final\Pratica3_verde\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Projeto_verde.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Operador\Documents\Entrega_Final\Pratica3_verde\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Projeto_verde.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
