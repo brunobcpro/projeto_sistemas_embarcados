@@ -73,7 +73,7 @@ void MX_USB_HOST_Process(void);
 uint8_t contador = 0;
 uint8_t rx_byte; // Vai guardar o byte recebido do Cliente
 uint8_t comando_recebido = 0; // Flag para a máquina de estados
-uint8_t tabela[] = "Nome1, Matricula1\nNome2, Matricula2\n"; // Substitua pelos seus dados
+uint8_t tabela[50] = "Bruno, 01\nDaniel, 02\nPaulo, 03";
 /* USER CODE END 0 */
 
 /**
@@ -131,7 +131,7 @@ int main(void)
       }
 
       // LÓGICA 2: Tratar o comando recebido do Cliente
-      if (comando_recebido == 1) {
+       if (comando_recebido == 1) {
           comando_recebido = 0; // Abaixa a bandeira
 
           // 1. Envia o contador por Interrupção
@@ -140,14 +140,17 @@ int main(void)
           // Espera a transmissão da interrupção acabar para não "encavalar" os dados
           while (huart2.gState != HAL_UART_STATE_READY) {}
 
+          // --- A LINHA MÁGICA ---
+          HAL_Delay(20); // Dá tempo para a Placa Branca armar o seu DMA!
+
           // 2. Envia a tabela por DMA
-          HAL_UART_Transmit_DMA(&huart2, tabela, sizeof(tabela) - 1);
+          HAL_UART_Transmit_DMA(&huart2, tabela, 50);
 
           // 3. Zera o contador
           contador = 0;
       }
   }
-}
+
   /* USER CODE END 3 */
 }
 
