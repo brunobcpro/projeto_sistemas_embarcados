@@ -1,0 +1,10 @@
+23:05:08 **** Incremental Build of configuration Debug for project Imogen ****
+make -j8 all 
+arm-none-eabi-size  Imogen.elf 
+   text	   data	    bss	    dec	    hex	filename
+  37532	     96	   2544	  40172	   9cec	Imogen.elf
+Finished building: default.size.stdout
+ 
+
+23:05:08 Build Finished. 0 errors, 0 warnings. (took 315ms)
+

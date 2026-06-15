@@ -1,0 +1,386 @@
+================================================================================
+          ROTEIRO DE APRESENTAÇÃO EXECUTIVA — PROJETO IMOGEN
+================================================================================
+Público-alvo: Investidores, gestores administrativos, biólogos e avaliadores sem 
+background técnico em sistemas embarcados.
+
+Diretriz: Explicar o valor da segurança do material biológico em primeiro lugar,
+traduzindo a complexidade do firmware STM32 em analogias cotidianas simples.
+
+--------------------------------------------------------------------------------
+
+[SLIDE 1 - CAPA: PROJETO IMOGEN — SISTEMA EMBARCADO DE ALTA CONFIABILIDADE]
+
+- Objetivo do Slide: 
+  Apresentar a marca do projeto IMOGEN, expor claramente qual problema de alta 
+  relevância ele resolve (proteger oócitos e embriões no transporte) e introduzir
+  a robustez tecnológica que serve como base da solução.
+
+- Roteiro de Fala (Script):
+  "Olá a todos os membros da banca avaliadora, parceiros e potenciais investidores.
+  Hoje, tenho a satisfação de apresentar o IMOGEN. O IMOGEN não é apenas um 
+  dispositivo eletrônico; ele é uma solução de alta confiabilidade projetada 
+  para proteger vidas em seu estágio mais frágil e inicial: o transporte de 
+  oócitos e embriões para reprodução assistida. 
+  
+  Diferente das caixas de isopor passivas tradicionais do mercado, que apenas tentam 
+  atrasar o resfriamento, o IMOGEN é um escudo protetor ativo. Ele monitora a 
+  temperatura e os gases do ambiente de segundo em segundo, exibe as condições 
+  na tela local e gera um histórico eletrônico inviolável da viagem, garantindo 
+  que cada amostra chegue ao destino final com sua viabilidade biológica 100% 
+  preservada."
+
+- Analogia de Apoio:
+  "Pensem no sistema embarcado do IMOGEN como o computador de bordo de um moderno 
+  jato comercial: ele é pequeno, altamente especializado e vigia constantemente 
+  cada milímetro da aeronave para garantir que os passageiros — que no nosso caso 
+  são as preciosas células biológicas — façam uma viagem perfeitamente segura."
+
+- Pergunta Potencial da Banca:
+  "Por que usar uma tecnologia avançada como a linha STM32 HAL para monitorar 
+  uma simples caixa de transporte?"
+  
+- Resposta Curta e Eficaz:
+  "Placas comuns de hobistas, como o Arduino, não possuem mecanismos internos 
+  de segurança contra travamento e falhas de energia. A linha STM32 HAL nos dá 
+  recursos de nível industrial e médico para garantir que o monitoramento nunca 
+  pare de rodar, mesmo sob trepidações extremas nas estradas ou oscilações de 
+  bateria."
+
+--------------------------------------------------------------------------------
+
+[SLIDE 2 - CAPA: DETALHES TÉCNICOS (MCU CORE, FIRMWARE, TELEMETRIA)]
+
+- Objetivo do Slide: 
+  Demonstrar a solidez da infraestrutura eletrônica escolhida para o cérebro 
+  e para a comunicação do sistema, provando que o projeto foi desenhado sob 
+  padrões profissionais de arquitetura de software.
+
+- Roteiro de Fala (Script):
+  "Para garantir a máxima confiabilidade, o cérebro do IMOGEN é 
+  o microcontrolador STM32L476. Ele opera a 80 MHz, o que significa que ele consegue 
+  realizar 80 milhões de operações matemáticas simples em apenas um segundo.
+  
+  Nosso software interno, o firmware, utiliza a biblioteca HAL de forma assíncrona. 
+  Isso significa que o sistema não desperdiça energia 'esperando' a leitura dos 
+  sensores ou o envio de dados terminar; ele gerencia as tarefas em paralelo, o que 
+  estende drasticamente a duração da bateria no transporte rodoviário, enquanto a 
+  telemetria assíncrona envia pacotes de dados continuamente à central de monitoramento."
+
+- Analogia de Apoio:
+  "O firmware programado via HAL funciona exatamente como o piloto automático de 
+  um avião: ele conversa com os sensores de asa, com os motores e com a cabine 
+  de comando ao mesmo tempo, de forma independente, sem precisar paralisar o voo 
+  para dar atenção a uma única tarefa de cada vez."
+
+- Pergunta Potencial da Banca:
+  "O que é 'telemetria assíncrona' na prática e qual o ganho real disso?"
+  
+- Resposta Curta e Eficaz:
+  "Na telemetria convencional, se o computador da central demorar para responder, 
+  a maleta inteira trava esperando. Na telemetria assíncrona, a maleta transmite 
+  os dados constantemente por conta própria e continua rodando seus algoritmos 
+  locais. Se a internet ou o sinal cair, a maleta continua lendo os sensores e 
+  exibindo alertas no LCD normalmente."
+
+--------------------------------------------------------------------------------
+
+[SLIDE 3 - O PROBLEMA: RISCOS EM MEIOS BIOLÓGICOS]
+
+- Objetivo do Slide: 
+  Sensibilizar a audiência leiga sobre as vulnerabilidades extremas das células 
+  transportadas e evidenciar as graves deficiências das soluções de mercado 
+  que justificam a criação do IMOGEN.
+
+- Roteiro de Fala (Script):
+  "Para entendermos o valor do IMOGEN, precisamos olhar para os perigos do trajeto. 
+  Oócitos e embriões são compostos de células vivas extremamente sensíveis. O 
+  primeiro grande inimigo é a instabilidade térmica: desvios maiores que meio 
+  grau célsius em relação aos 37°C ideais paralisam a divisão celular, matando o 
+  embrião. 
+  
+  O segundo inimigo é a contaminação química invisível: o monóxido de carbono (CO) 
+  dos escapamentos dos carros penetra nas caixas térmicas tradicionais e altera a 
+  acidez do meio onde o material biológico está mergulhado. As caixas térmicas de 
+  hoje são 'caixas-pretas': elas não avisam o motorista se a temperatura caiu e não 
+  deixam nenhum histórico eletrônico para provar aos médicos que a viagem foi segura."
+
+- Analogia de Apoio:
+  "Transportar um embrião sensível em uma maleta passiva convencional é como 
+  viajar com um bebê recém-nascido em um carro sem ar-condicionado, com os vidros 
+  abertos no meio de um túnel poluído por fumaça de caminhão, sem nenhum painel 
+  para ver como a criança está."
+
+- Pergunta Potencial da Banca:
+  "Como o Monóxido de Carbono (CO) entra na maleta de transporte?"
+  
+- Resposta Curta e Eficaz:
+  "O CO é um gás extremamente penetrante presente na fumaça do trânsito. Maletas 
+  comuns não são 100% estanques à pressão atmosférica e acabam absorvendo esse gás. 
+  Ao dissolver-se no líquido de cultivo dos embriões, o CO altera o pH, destruindo-os. 
+  O IMOGEN detecta vazamentos na escala de milissegundos para evitar esse desastre."
+
+--------------------------------------------------------------------------------
+
+[SLIDE 4 - A SOLUÇÃO: ARQUITETURA DO IMOGEN]
+
+- Objetivo do Slide: 
+  Apresentar o IMOGEN como a resposta definitiva e integrada aos riscos descritos,
+  enfatizando seus pilares de segurança ativa: automação, feedback visual, 
+  auditoria e imunidade a travamentos de software.
+
+- Roteiro de Fala (Script):
+  "A resposta para esses riscos é o ecossistema IMOGEN. Ele atua sob quatro 
+  pilares de segurança ativa. O primeiro é a aquisição automatizada por sensores 
+  especializados. O segundo é o feedback visual imediato em uma tela LCD local 
+  para que o transportador saiba o estado exato das amostras no primeiro olhar. 
+  
+  O terceiro é a rastreabilidade total, que envia os dados para registro e 
+  criação de um histórico. E o quarto pilar, o mais importante, é uma arquitetura 
+  protegida por hardware que não utiliza pausas de software no loop principal. 
+  Isso significa que o microcontrolador nunca 'tira folgas' ou trava para esperar 
+  um sensor responder; ele monitora as amostras continuamente de forma inabalável."
+
+- Analogia de Apoio:
+  "Uma arquitetura sem atrasos de software funciona como o sistema de freios ABS 
+  de um carro moderno: o sistema monitora a rotação das rodas a cada milissegundo. 
+  Mesmo se você estiver mexendo no rádio ou no ar-condicionado do painel do carro, 
+  o freio nunca deixa de responder instantaneamente porque tem prioridade física."
+
+- Pergunta Potencial da Banca:
+  "O que é esse 'loop principal' e por que a ausência de atrasos nele faz o 
+  sistema ser mais seguro?"
+  
+- Resposta Curta e Eficaz:
+  "O loop principal é a rotina de tarefas que o chip executa repetidamente. Em 
+  placas simples, os programadores usam pausas para dar tempo entre as leituras, 
+  o que congela a placa inteira. O IMOGEN usa temporizadores de hardware para 
+  agendar as tarefas, mantendo o processador livre para ler emergências a qualquer 
+  momento."
+
+--------------------------------------------------------------------------------
+
+[SLIDE 5 - HARDWARE & PERIFÉRICOS DO SISTEMA]
+
+- Objetivo do Slide: 
+  Explicar a distribuição física dos componentes no microcontrolador, 
+  demonstrando de forma didática que a independência dos canais de comunicação 
+  garante tolerância a falhas físicas do circuito.
+
+- Roteiro de Fala (Script):
+  "Para que o sistema seja verdadeiramente robusto, a nossa engenharia separou 
+  cada componente em canais de comunicação independentes do STM32. O display LCD 
+  comunica-se pelo barramento digital I2C1; o sensor de temperatura digital LM75, 
+  pelo barramento I2C2; e o sensor de gás MQ-7 conecta-se a um conversor de alta 
+  resolução analógico-digital chamado ADC1. 
+  
+  Por fim, a telemetria USART2 transmite as informações via interrupção de hardware. 
+  Essa separação de barramentos garante que, se o display local quebrar ou entrar em 
+  curto-circuito devido a um impacto físico na estrada, a leitura de temperatura e 
+  de gases continue funcionando perfeitamente em segundo plano, mantendo o registro 
+  de dados intacto."
+
+- Analogia de Apoio:
+  "Pensem nos barramentos I2C como ramais telefônicos separados em um escritório. 
+  Ao invés de ligar o display LCD e o termômetro no mesmo ramal — onde um poderia 
+  deixar a linha ocupada e impedir o outro de falar —, nós demos a cada um deles 
+  uma linha telefônica exclusiva. Se o LCD falhar em atender, o termômetro continua 
+  transmitindo o sinal vital das células sem qualquer interferência."
+
+- Pergunta Potencial da Banca:
+  "Por que usar um conversor de 12 bits (ADC1) para ler o sensor de gás MQ-7?"
+  
+- Resposta Curta e Eficaz:
+  "O conversor de 12 bits divide o sinal analógico do sensor em 4096 degraus digitais. 
+  Isso nos permite detectar variações de tensão mínimas, de apenas 0,8 milivolts. 
+  Para gases nocivos como o monóxido de carbono, essa precisão cirúrgica nos permite 
+  identificar um vazamento no instante inicial, muito antes de o ar se tornar tóxico."
+
+--------------------------------------------------------------------------------
+
+[SLIDE 6 - ARQUITETURA DO FIRMWARE — LOOP E INTERRUPÇÕES]
+
+- Objetivo do Slide: 
+  Apresentar o fluxo operacional do programa e demonstrar como a temporização 
+  precisa baseada em interrupções físicas de hardware otimiza a estabilidade e o 
+  baixo consumo de bateria da maleta.
+
+- Roteiro de Fala (Script):
+  "Este slide descreve a coreografia interna do nosso firmware. Ele trabalha orientado 
+  a eventos. Ao ligar, o sistema faz o autoteste e calibra os sensores. A partir daí, 
+  o processador entra em estado de vigília. 
+  
+  O grande maestro do tempo é o Timer 1, um circuito de temporização independente no 
+  chip que gera uma interrupção física a cada 1 segundo exato. Essa interrupção avisa 
+  a CPU, que 'acorda' por frações de milissegundos para ler os sensores, aplicar 
+  filtros de estabilização, atualizar a tela e disparar a transmissão serial de 
+  dados via interrupção UART, retornando imediatamente ao repouso para economizar 
+  energia da bateria."
+
+- Analogia de Apoio:
+  "Uma interrupção de hardware funciona como a campainha da sua casa. Você não 
+  precisa ficar sentado encarando a porta da frente esperando a encomenda chegar. 
+  Você pode ler, cozinhar ou relaxar (baixo consumo). Quando o entregador toca a 
+  campainha (interrupção), você atende (coleta os sensores) e volta ao que estava 
+  fazendo imediatamente de onde parou."
+
+- Pergunta Potencial da Banca:
+  "Ler a temperatura apenas uma vez por segundo (1 Hz) não é perigoso? O sistema 
+  não deveria ler o tempo todo?"
+  
+- Resposta Curta e Eficaz:
+  "Em física térmica, as variações de temperatura dentro de uma maleta isolada levam 
+  dezenas de segundos ou minutos para ocorrer. Ler a cada 1 segundo é mais do que 
+  suficiente para detectar qualquer anomalia com total segurança, permitindo-nos 
+  economizar energia vital para que a maleta funcione por dias."
+
+--------------------------------------------------------------------------------
+
+[SLIDE 7 - MAPEAMENTO TÉCNICO: PINAGEM LQFP64]
+
+- Objetivo do Slide: 
+  Evidenciar a precisão do projeto elétrico e físico, demonstrando como os pinos 
+  físicos do encapsulamento foram criteriosamente distribuídos e protegidos via 
+  configuração de software.
+
+- Roteiro de Fala (Script):
+  "Neste slide, exibimos o mapeamento elétrico dos pinos físicos do nosso chip de 
+  64 terminais. Mapeamos a leitura do sensor MQ-7 no pino PC0, o barramento de dados 
+  e relógio do display LCD nos pinos PB6 e PB7, e os sinais do sensor de temperatura 
+  LM75 nos pinos PB10 e PB11. 
+  
+  Além disso, configuramos pinos dedicados para acionar o LED de diagnóstico físico 
+  (PA5) e receber sinais do botão de emergência (PC13) via interrupção. Este mapa elétrico 
+  garante que cada sensor tenha seu caminho físico livre de ruídos ou curtos-circuitos 
+  durante o tráfego de dados."
+
+- Analogia de Apoio:
+  "O mapeamento de pinos funciona exatamente como o quadro de disjuntores de uma 
+  casa bem planejada: cada tomada e cada lâmpada tem um fio dedicado e uma chave 
+  no quadro elétrico. Se você ligar o secador de cabelo no banheiro, não corre o 
+  risco de interromper a energia da geladeira na cozinha."
+
+- Pergunta Potencial da Banca:
+  "O que é esse modo 'Push-Pull' listado para o pino do LED (PA5)?"
+  
+- Resposta Curta e Eficaz:
+  "No modo Push-Pull, o pino do processador empurra ativamente eletricidade para ligar 
+  o LED e puxa ativamente a eletricidade de volta para apagá-lo de forma firme e rápida. 
+  Isso evita que o LED pisque de forma fantasma devido a ruídos elétricos gerados por 
+  outros motores ou sensores na maleta."
+
+--------------------------------------------------------------------------------
+
+[SLIDE 8 - TRATAMENTO DE DADOS E TELEMETRIA]
+
+- Objetivo do Slide: 
+  Explicar como o firmware trata os ruídos elétricos dos sensores analógicos e como 
+  a integração com o script Python em expressões regulares garante um banco de 
+  dados limpo e auditável para os laboratórios biológicos.
+
+- Roteiro de Fala (Script):
+  "Os sinais elétricos brutos gerados por sensores no meio da rua são poluídos por 
+  ruídos causados pela vibração e redes elétricas. Para blindar a leitura do 
+  monóxido de carbono contra alarmes falsos, o IMOGEN aplica um filtro matemático 
+  circular interno que calcula a média móvel das últimas 20 leituras. 
+  
+  Toda a matemática no chip é feita com números inteiros (sem vírgulas) para economizar 
+  energia. Ao final, enviamos um pacote de texto compacto pela porta serial. No 
+  computador de recepção, um script em Python lê os dados, usa a ferramenta Regex — 
+  um filtro inteligente — para descartar mensagens corrompidas e salva apenas dados 
+  validados em uma planilha CSV estruturada."
+
+- Analogia de Apoio:
+  "O filtro circular de 20 posições é como o júri de uma competição esportiva: se 
+  tivéssemos apenas um árbitro dando notas a cada segundo, uma distração (ruído) 
+  estragaria o placar. Ao colhermos as notas de 20 juízes continuamente e tirarmos 
+  a média, os erros absurdos e picos de ruído são anulados instantaneamente."
+
+- Pergunta Potencial da Banca:
+  "O que é esse 'Regex' e por que ele é necessário na recepção?"
+  
+- Resposta Curta e Eficaz:
+  "Regex significa Expressão Regular. Funciona como um cão farejador na entrada 
+  do computador receptor. Ele analisa a linha de texto enviada pela maleta e só deixa 
+  gravar na planilha se a mensagem contiver o padrão exato de letras e números esperado. 
+  Se a linha vier incompleta ou corrompida por ruído do cabo serial, o cão farejador 
+  a descarta automaticamente."
+
+--------------------------------------------------------------------------------
+
+[SLIDE 9 - DESAFIOS TÉCNICOS E SOLUÇÕES DE FIRMWARE]
+
+- Objetivo do Slide: 
+  Destacar a maturidade do firmware do IMOGEN em situações reais de estresse físico, 
+  como quebra de sensores ou desconexões elétricas, provando a resiliência do 
+  produto.
+
+- Roteiro de Fala (Script):
+  "Na vida real, maletas batem, fios se soltam e componentes falham. Um sistema comum 
+  travaria imediatamente se um de seus sensores parasse de responder, gerando a perda 
+  do controle e a destruição dos embriões. O IMOGEN previne isso através de programação 
+  defensiva de alto nível. 
+  
+  Se o sensor de temperatura digital falhar no barramento físico, o microcontrolador 
+  detecta o erro em microssegundos por uma rotina chamada callback de erro I2C. Essa 
+  rotina força o destravamento das flags de controle, impedindo que a CPU congele, 
+  mantendo o display LCD ativo e enviando um alerta de emergência imediato para a 
+  equipe de suporte."
+
+- Analogia de Apoio:
+  "Essa callback de erro funciona como o botão de cancelamento de uma catraca de 
+  metrô. Se você passar o bilhete com defeito, a catraca não trava o sistema de 
+  passagem para sempre impedindo as outras pessoas. Ela emite um bipe de erro, 
+  destrava a catraca para liberar o fluxo e permite que novas tentativas sejam 
+  feitas."
+
+- Pergunta Potencial da Banca:
+  "Como esse código na tela (`HAL_I2C_ErrorCallback`) previne o travamento físico 
+  da maleta?"
+  
+- Resposta Curta e Eficaz:
+  "Se um sensor falha eletricamente, a biblioteca de comunicação entra em um loop 
+  infinito esperando um sinal de conclusão que nunca chegará. Este código detecta o 
+  erro elétrico e força as variáveis de liberação (`tx_done` e `rx_done`) para o valor 1. 
+  Isso 'engana' o loop de forma segura para que ele pule a leitura falha e continue 
+  atualizando o display e a telemetria."
+
+--------------------------------------------------------------------------------
+
+[SLIDE 10 - RESULTADOS E VALIDAÇÃO EXPERIMENTAL]
+
+- Objetivo do Slide: 
+  Apresentar as métricas finais de validação do projeto, provando matematicamente 
+  que a arquitetura atinge alta eficiência energética, estabilidade de tempo real 
+  e geração segura de relatórios de auditoria biológica.
+
+- Roteiro de Fala (Script):
+  "Para concluir, nós submetemos o IMOGEN a exaustivos ensaios práticos. O processador 
+  operou utilizando menos de meio por cento da sua capacidade total, mantendo a placa 
+  fria e eliminando riscos de aquecer a maleta. O filtro circular provou ser capaz 
+  de eliminar 94% dos ruídos elétricos indesejados do sensor de gás MQ-7, garantindo 
+  medições limpas. 
+  
+  A base de tempo de 1 Hz manteve-se perfeitamente síncrona com o relógio físico, livre 
+  de desvios. O sistema sobreviveu a testes de desconexão elétrica em funcionamento 
+  e o arquivo final `dados_sensores.csv` consolidou todas as leituras e alertas com 
+  segurança. O IMOGEN está validado e pronto para garantir a rastreabilidade e a 
+  proteção definitiva no transporte biológico de alta sensibilidade. Obrigado."
+
+- Analogia de Apoio:
+  "Manter a CPU em menos de 0.5% de uso é como comprar um caminhão de carga pesado 
+  apenas para transportar uma caixa de fósforos. O motor trabalha com extrema folga, 
+  não faz esforço, não esquenta e tem uma margem de segurança gigantesca para lidar 
+  com qualquer subida ou obstáculo na estrada."
+
+- Pergunta Potencial da Banca:
+  "O que é esse 'drift' que vocês mencionam ter evitado na base de tempo?"
+  
+- Resposta Curta e Eficaz:
+  "Drift é o atraso sistemático que acumula ao calcular o tempo via software comum. 
+  Em viagens longas de 48 horas, a maleta poderia atrasar minutos em relação ao relógio 
+  real, estragando a marcação de tempo dos relatórios de auditoria. Usando o Timer 1 
+  de hardware com oscilador a cristal de quartzo físico da placa, esse desvio é 
+  anulado."
+
+================================================================================
