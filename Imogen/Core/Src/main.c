@@ -23,6 +23,7 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -248,7 +249,15 @@ int main(void)
 
 	      int16_t  temp = 0;
 	      uint32_t mq7_mv   = MQ7_ReadFiltered();
-	      uint8_t  mq7_pct  = (uint8_t)((mq7_mv * 100UL) / 3300UL);
+	      float    mq7_ppm  = 0.0f;
+	      if (mq7_mv > 0) {
+	          float mv = (float)mq7_mv;
+	          if (mv >= 5000.0f) mv = 4999.0f;
+	          float ratio = (6.7567f * (5000.0f - mv)) / mv;
+	          if (ratio > 0.0f) {
+	              mq7_ppm = 100.0f * powf(ratio, -1.53f);
+	          }
+	      }
 
 	      HAL_StatusTypeDef status = LM75_Temp(&temp);
 
@@ -259,14 +268,14 @@ int main(void)
 
 	          snprintf(lcd_line1, sizeof(lcd_line1), "Temp: %d.%d%cC    ",
 	                   t_int, t_frac, 0xDF);
-	          snprintf(lcd_line2, sizeof(lcd_line2), "CO: %lumV      ", mq7_mv, mq7_pct);
+	          snprintf(lcd_line2, sizeof(lcd_line2), "CO: %.1fppm     ", mq7_ppm);
 
 	          LCD_SetCursor(0, 0); LCD_Print(lcd_line1);
 	          LCD_SetCursor(0, 1); LCD_Print(lcd_line2);
 
 	          char msg[64];
-	          snprintf(msg, sizeof(msg), "Temp:%d.%dC CO:%lumV(%u%%)\r\n",
-	                   t_int, t_frac, mq7_mv, mq7_pct);
+	          snprintf(msg, sizeof(msg), "Temp:%d.%dC CO:%lumV(%.2fppm)\r\n",
+	                   t_int, t_frac, mq7_mv, mq7_ppm);
 	          UART_Print_IT(msg);
 	      } else {
 	          UART_Print_IT("ERRO: LM75 nao responde!\r\n");

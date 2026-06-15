@@ -11,9 +11,23 @@ import serial.tools.list_ports
 CSV_FILE = "dados_sensores.csv"
 BAUD_RATE = 115200
 
+def mv_to_ppm(mv):
+    if mv <= 0:
+        return 0.0
+    if mv >= 5000:
+        mv = 4999
+    v_rl = mv / 1000.0
+    r_l = 10.0  # kOhm
+    v_c = 5.0   # Volts
+    r_s = r_l * (v_c - v_rl) / v_rl
+    r_0 = 1.48  # kOhm
+    ratio = r_s / r_0
+    ppm = 100.0 * (ratio ** -1.53)
+    return round(ppm, 2)
+
 # Regex pattern matching the output of the STM32:
-# "Temp:25.5C CO:1500mV(45%)" or "Temp:-2.3C CO:320mV(9%)"
-DATA_PATTERN = re.compile(r"Temp:(-?\d+(?:\.\d+)?)C\s+CO:(\d+)mV\((\d+)%\)")
+# "Temp:25.5C CO:1500mV(15.20ppm)" or "Temp:-2.3C CO:320mV(9%)"
+DATA_PATTERN = re.compile(r"Temp:(-?\d+(?:\.\d+)?)C\s+CO:(\d+)mV\(([\d\.]+)(%|ppm)\)")
 
 def select_serial_port():
     ports = serial.tools.list_ports.comports()
@@ -72,7 +86,7 @@ def main():
         with open(CSV_FILE, mode='a', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
             if not file_exists:
-                writer.writerow(["Timestamp", "Temperatura_C", "CO_Voltagem_mV", "CO_Percentual"])
+                writer.writerow(["Timestamp", "Temperatura_C", "CO_Voltagem_mV", "CO_PPM"])
                 print(f"Arquivo CSV '{CSV_FILE}' criado com os cabeçalhos.")
     except IOError as e:
         print(f"Erro ao inicializar o arquivo CSV: {e}")
@@ -80,8 +94,8 @@ def main():
         sys.exit(1)
         
     print("\nLendo dados... Pressione Ctrl+C para encerrar.\n")
-    print(f"{'Data e Hora':<20} | {'Temp (°C)':<10} | {'CO (mV)':<8} | {'CO (%)':<6}")
-    print("-" * 55)
+    print(f"{'Data e Hora':<20} | {'Temp (°C)':<10} | {'CO (mV)':<8} | {'CO (PPM)':<8}")
+    print("-" * 60)
     
     try:
         # Flush input buffer to clear old data
@@ -115,18 +129,25 @@ def main():
                 if match:
                     temp_val = float(match.group(1))
                     co_mv = int(match.group(2))
-                    co_pct = int(match.group(3))
+                    val_str = match.group(3)
+                    unit = match.group(4)
+                    
+                    # Se receber em %, converte para PPM. Se for ppm, usa o valor diretamente.
+                    if unit == "%":
+                        co_ppm = mv_to_ppm(co_mv)
+                    else:
+                        co_ppm = float(val_str)
                     
                     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
                     
                     # Output to console nicely
-                    print(f"{timestamp:<20} | {temp_val:<10.1f} | {co_mv:<8} | {co_pct:<6}%")
+                    print(f"{timestamp:<20} | {temp_val:<10.1f} | {co_mv:<8} | {co_ppm:<8.2f}")
                     
                     # Save to CSV
                     try:
                         with open(CSV_FILE, mode='a', newline='', encoding='utf-8') as f:
                             writer = csv.writer(f)
-                            writer.writerow([timestamp, temp_val, co_mv, co_pct])
+                            writer.writerow([timestamp, temp_val, co_mv, co_ppm])
                     except IOError as e:
                         print(f"\nErro ao escrever no CSV: {e}")
                 else:
