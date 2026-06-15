@@ -266,9 +266,12 @@ int main(void)
 	          int16_t t_frac = temp % 10;
 	          if (t_frac < 0) t_frac = -t_frac;
 
+	          uint8_t  mq7_pct  = (uint8_t)((mq7_mv * 100UL) / 3300UL);
+	          uint32_t ppm_int  = (uint32_t)mq7_ppm;
+
 	          snprintf(lcd_line1, sizeof(lcd_line1), "Temp: %d.%d%cC    ",
 	                   t_int, t_frac, 0xDF);
-	          snprintf(lcd_line2, sizeof(lcd_line2), "CO: %.1fppm     ", mq7_ppm);
+	          snprintf(lcd_line2, sizeof(lcd_line2), "CO:%luppm(%u%%)   ", ppm_int, mq7_pct);
 
 	          LCD_SetCursor(0, 0); LCD_Print(lcd_line1);
 	          LCD_SetCursor(0, 1); LCD_Print(lcd_line2);
