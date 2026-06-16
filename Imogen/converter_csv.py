@@ -14,7 +14,7 @@ def mv_to_ppm(mv):
     r_0 = 1.48  # kOhm (calibrado para ar limpo: ~1000mV resulta em Rs=40k, Rs/R0=27, ~0.65 ppm)
     ratio = r_s / r_0
     ppm = 100.0 * (ratio ** -1.53)
-    return round(ppm, 2)
+    return round(ppm, 3)
 
 def convert_csv(file_path):
     if not os.path.exists(file_path):

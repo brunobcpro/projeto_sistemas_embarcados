@@ -23,7 +23,7 @@ def mv_to_ppm(mv):
     r_0 = 1.48  # kOhm
     ratio = r_s / r_0
     ppm = 100.0 * (ratio ** -1.53)
-    return round(ppm, 2)
+    return round(ppm, 3)
 
 # Regex pattern matching the output of the STM32:
 # "Temp:25.5C CO:1500mV(15.20ppm)" or "Temp:-2.3C CO:320mV(9%)"
@@ -141,7 +141,7 @@ def main():
                     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
                     
                     # Output to console nicely
-                    print(f"{timestamp:<20} | {temp_val:<10.1f} | {co_mv:<8} | {co_ppm:<8.2f}")
+                    print(f"{timestamp:<20} | {temp_val:<10.1f} | {co_mv:<8} | {co_ppm:<8.3f}")
                     
                     # Save to CSV
                     try:

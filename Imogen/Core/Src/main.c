@@ -266,19 +266,21 @@ int main(void)
 	          int16_t t_frac = temp % 10;
 	          if (t_frac < 0) t_frac = -t_frac;
 
-	          uint8_t  mq7_pct  = (uint8_t)((mq7_mv * 100UL) / 3300UL);
 	          uint32_t ppm_int  = (uint32_t)mq7_ppm;
+	          uint32_t ppm_frac = (uint32_t)(mq7_ppm * 1000.0f) % 1000;
 
 	          snprintf(lcd_line1, sizeof(lcd_line1), "Temp: %d.%d%cC    ",
 	                   t_int, t_frac, 0xDF);
-	          snprintf(lcd_line2, sizeof(lcd_line2), "CO:%luppm(%u%%)   ", ppm_int, mq7_pct);
+	          snprintf(lcd_line2, sizeof(lcd_line2), "CO:%lu.%03luppm    ", ppm_int, ppm_frac);
 
 	          LCD_SetCursor(0, 0); LCD_Print(lcd_line1);
 	          LCD_SetCursor(0, 1); LCD_Print(lcd_line2);
 
 	          char msg[64];
-	          snprintf(msg, sizeof(msg), "Temp:%d.%dC CO:%lumV(%.2fppm)\r\n",
-	                   t_int, t_frac, mq7_mv, mq7_ppm);
+	          uint32_t ser_ppm_int  = (uint32_t)mq7_ppm;
+	          uint32_t ser_ppm_frac = (uint32_t)(mq7_ppm * 1000.0f) % 1000;
+	          snprintf(msg, sizeof(msg), "Temp:%d.%dC CO:%lumV(%lu.%03luppm)\r\n",
+	                   t_int, t_frac, mq7_mv, ser_ppm_int, ser_ppm_frac);
 	          UART_Print_IT(msg);
 	      } else {
 	          UART_Print_IT("ERRO: LM75 nao responde!\r\n");
